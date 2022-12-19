@@ -1,0 +1,22 @@
+{
+  "name": "com.monster.firebasegit",
+  "version": "9.6.0",
+  "displayName": "Monster Firebase Git",
+  "keywords": [
+    "MonsterFirebase"
+  ],
+  "author": {
+    "name": "MonsterFirebase",
+    "url": "https://monsterstudio.io/"
+  },
+  "description": "Monster firebase for games",
+  "unity": "2020.3",
+  "dependencies": {
+    
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/3BMonsterStudio/unity-firebase-app.git",
+    "directory": ""com.monster.firebasegit","
+  }
+}
