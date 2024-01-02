@@ -17,6 +17,9 @@ static void unityCallBack(NSString* objectName, const char* method, const char* 
 extern "C" {
  
     const void _startSDK(bool shouldCallback, const char* objectName) {
+        [[AppsFlyerLib shared] setPluginInfoWith: AFSDKPluginUnity
+                                pluginVersion:@"6.12.22"
+                                additionalParams:nil];
         startRequestObjectName = stringFromChar(objectName);
         AppsFlyeriOSWarpper.didCallStart = YES;
         [AppsFlyerAttribution shared].isBridgeReady = YES;
@@ -278,6 +281,10 @@ extern "C" {
 
     const void _setPartnerData(const char* partnerId, const char* partnerInfo) {
         [[AppsFlyerLib shared] setPartnerDataWithPartnerId: stringFromChar(partnerId) partnerInfo:dictionaryFromJson(partnerInfo)];
+    }
+
+    const void _disableIDFVCollection(bool isDisabled) {
+        [AppsFlyerLib shared].disableIDFVCollection = isDisabled;
     }
 
 }

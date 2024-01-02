@@ -7,14 +7,13 @@ namespace AppsFlyerSDK
     public class AppsFlyer : MonoBehaviour
     {
 
-        public static readonly string kAppsFlyerPluginVersion = "6.9.4";
+        public static readonly string kAppsFlyerPluginVersion = "6.12.22";
         public static string CallBackObjectName = null;
         private static EventHandler onRequestResponse;
         private static EventHandler onInAppResponse;
         private static EventHandler onDeepLinkReceived;
         public static IAppsFlyerNativeBridge instance = null;
         public delegate void unityCallBack(string message);
-
 
 
         /// <summary>
@@ -295,9 +294,16 @@ namespace AppsFlyerSDK
             if (instance != null)
             {
                 instance.setCurrencyCode(currencyCode);
-            }
-
-
+            } else {
+#if UNITY_IOS || UNITY_STANDALONE_OSX
+                instance = new AppsFlyeriOS();
+                instance.setCurrencyCode(currencyCode);
+#elif UNITY_ANDROID
+                instance = new AppsFlyerAndroid();
+                instance.setCurrencyCode(currencyCode);
+#else
+#endif
+        }
         }
 
         /// <summary>
@@ -378,9 +384,16 @@ namespace AppsFlyerSDK
             if (instance != null)
             {
                 instance.setHost(hostPrefixName, hostName);
-            }
-
-
+            } else {
+#if UNITY_IOS || UNITY_STANDALONE_OSX
+                instance = new AppsFlyeriOS();
+                instance.setHost(hostPrefixName, hostName);
+#elif UNITY_ANDROID
+                instance = new AppsFlyerAndroid();
+                instance.setHost(hostPrefixName, hostName);
+#else
+#endif
+        }
         }
 
         /// <summary>
@@ -582,8 +595,8 @@ namespace AppsFlyerSDK
         {
             if (instance != null && instance is IAppsFlyerIOSBridge)
             {
-                IAppsFlyerIOSBridge appsFlyerAndroidInstance = (IAppsFlyerIOSBridge)instance;
-                appsFlyerAndroidInstance.setDisableCollectAppleAdSupport(disable);
+                IAppsFlyerIOSBridge appsFlyeriOSInstance = (IAppsFlyerIOSBridge)instance;
+                appsFlyeriOSInstance.setDisableCollectAppleAdSupport(disable);
             }
         }
 
@@ -591,8 +604,8 @@ namespace AppsFlyerSDK
         {
             if (instance != null && instance is IAppsFlyerIOSBridge)
             {
-                IAppsFlyerIOSBridge appsFlyerAndroidInstance = (IAppsFlyerIOSBridge)instance;
-                appsFlyerAndroidInstance.setShouldCollectDeviceName(shouldCollectDeviceName);
+                IAppsFlyerIOSBridge appsFlyeriOSInstance = (IAppsFlyerIOSBridge)instance;
+                appsFlyeriOSInstance.setShouldCollectDeviceName(shouldCollectDeviceName);
             }
         }
 
@@ -634,8 +647,8 @@ namespace AppsFlyerSDK
         {
             if (instance != null && instance is IAppsFlyerIOSBridge)
             {
-                IAppsFlyerIOSBridge appsFlyerAndroidInstance = (IAppsFlyerIOSBridge)instance;
-                appsFlyerAndroidInstance.setDisableCollectIAd(disableCollectIAd);
+                IAppsFlyerIOSBridge appsFlyeriOSInstance = (IAppsFlyerIOSBridge)instance;
+                appsFlyeriOSInstance.setDisableCollectIAd(disableCollectIAd);
             }
         }
 
@@ -653,8 +666,8 @@ namespace AppsFlyerSDK
         {
             if (instance != null && instance is IAppsFlyerIOSBridge)
             {
-                IAppsFlyerIOSBridge appsFlyerAndroidInstance = (IAppsFlyerIOSBridge)instance;
-                appsFlyerAndroidInstance.setUseReceiptValidationSandbox(useReceiptValidationSandbox);
+                IAppsFlyerIOSBridge appsFlyeriOSInstance = (IAppsFlyerIOSBridge)instance;
+                appsFlyeriOSInstance.setUseReceiptValidationSandbox(useReceiptValidationSandbox);
             }
         }
 
@@ -679,8 +692,8 @@ namespace AppsFlyerSDK
         {
             if (instance != null && instance is IAppsFlyerIOSBridge)
             {
-                IAppsFlyerIOSBridge appsFlyerAndroidInstance = (IAppsFlyerIOSBridge)instance;
-                appsFlyerAndroidInstance.setUseUninstallSandbox(useUninstallSandbox);
+                IAppsFlyerIOSBridge appsFlyeriOSInstance = (IAppsFlyerIOSBridge)instance;
+                appsFlyeriOSInstance.setUseUninstallSandbox(useUninstallSandbox);
             }
         }
 
@@ -707,8 +720,8 @@ namespace AppsFlyerSDK
         {
             if (instance != null && instance is IAppsFlyerIOSBridge)
             {
-                IAppsFlyerIOSBridge appsFlyerAndroidInstance = (IAppsFlyerIOSBridge)instance;
-                appsFlyerAndroidInstance.validateAndSendInAppPurchase(productIdentifier, price, currency, tranactionId, additionalParameters, gameObject);
+                IAppsFlyerIOSBridge appsFlyeriOSInstance = (IAppsFlyerIOSBridge)instance;
+                appsFlyeriOSInstance.validateAndSendInAppPurchase(productIdentifier, price, currency, tranactionId, additionalParameters, gameObject);
             }
         }
 
@@ -725,8 +738,8 @@ namespace AppsFlyerSDK
         { 
             if (instance != null && instance is IAppsFlyerIOSBridge)
             {
-                IAppsFlyerIOSBridge appsFlyerAndroidInstance = (IAppsFlyerIOSBridge)instance;
-                appsFlyerAndroidInstance.handleOpenUrl(url, sourceApplication, annotation);
+                IAppsFlyerIOSBridge appsFlyeriOSInstance = (IAppsFlyerIOSBridge)instance;
+                appsFlyeriOSInstance.handleOpenUrl(url, sourceApplication, annotation);
             }
         }
 
@@ -734,8 +747,8 @@ namespace AppsFlyerSDK
         {
             if (instance != null && instance is IAppsFlyerIOSBridge)
             {
-                IAppsFlyerIOSBridge appsFlyerAndroidInstance = (IAppsFlyerIOSBridge)instance;
-                appsFlyerAndroidInstance.registerUninstall(deviceToken);
+                IAppsFlyerIOSBridge appsFlyeriOSInstance = (IAppsFlyerIOSBridge)instance;
+                appsFlyeriOSInstance.registerUninstall(deviceToken);
             }
         }
 
@@ -743,8 +756,8 @@ namespace AppsFlyerSDK
         {
             if (instance != null && instance is IAppsFlyerIOSBridge)
             {
-                IAppsFlyerIOSBridge appsFlyerAndroidInstance = (IAppsFlyerIOSBridge)instance;
-                appsFlyerAndroidInstance.waitForATTUserAuthorizationWithTimeoutInterval(timeoutInterval);
+                IAppsFlyerIOSBridge appsFlyeriOSInstance = (IAppsFlyerIOSBridge)instance;
+                appsFlyeriOSInstance.waitForATTUserAuthorizationWithTimeoutInterval(timeoutInterval);
             }
         }
 
@@ -752,8 +765,8 @@ namespace AppsFlyerSDK
         {
             if (instance != null && instance is IAppsFlyerIOSBridge)
             {
-                IAppsFlyerIOSBridge appsFlyerAndroidInstance = (IAppsFlyerIOSBridge)instance;
-                appsFlyerAndroidInstance.setCurrentDeviceLanguage(language);
+                IAppsFlyerIOSBridge appsFlyeriOSInstance = (IAppsFlyerIOSBridge)instance;
+                appsFlyeriOSInstance.setCurrentDeviceLanguage(language);
             }
         }
 
@@ -776,9 +789,16 @@ namespace AppsFlyerSDK
         {
             if (instance != null && instance is IAppsFlyerIOSBridge)
             {
-                IAppsFlyerIOSBridge appsFlyerAndroidInstance = (IAppsFlyerIOSBridge)instance;
-                appsFlyerAndroidInstance.disableSKAdNetwork(isDisabled);
-            }
+                IAppsFlyerIOSBridge appsFlyeriOSInstance = (IAppsFlyerIOSBridge)instance;
+                appsFlyeriOSInstance.disableSKAdNetwork(isDisabled);
+            } else {
+#if UNITY_IOS || UNITY_STANDALONE_OSX
+                instance = new AppsFlyeriOS();
+                IAppsFlyerIOSBridge appsFlyeriOSInstance = (IAppsFlyerIOSBridge)instance;
+                appsFlyeriOSInstance.disableSKAdNetwork(isDisabled);
+#else
+#endif
+        }
         }
 
         public static void setCollectOaid(bool isCollect)
@@ -853,6 +873,24 @@ namespace AppsFlyerSDK
                 IAppsFlyerAndroidBridge appsFlyerAndroidInstance = (IAppsFlyerAndroidBridge)instance;
                 appsFlyerAndroidInstance.setDisableNetworkData(disable);
             }
+        }
+
+
+        /// <summary>
+        /// Use to disable app vendor identifier (IDFV) collection, 'true' to disable.
+        /// </summary>
+        public static void disableIDFVCollection(bool isDisabled) 
+        {
+#if UNITY_IOS || UNITY_STANDALONE_OSX
+            if (instance == null) { 
+                instance = new AppsFlyeriOS();
+            }
+            if (instance != null && instance is IAppsFlyerIOSBridge) {
+                IAppsFlyerIOSBridge appsFlyeriOSInstance = (IAppsFlyerIOSBridge)instance;
+                appsFlyeriOSInstance.disableIDFVCollection(isDisabled);
+            }
+#else
+#endif
         }
 
         /// <summary>
