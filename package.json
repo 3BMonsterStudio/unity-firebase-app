@@ -1,6 +1,6 @@
 {
   "name": "com.monster.firebasegit",
-  "version": "10.7.0",
+  "version": "11.6.0",
   "displayName": "Monster Firebase Git",
   "keywords": [
     "MonsterFirebase"
@@ -10,7 +10,7 @@
     "url": "https://monsterstudio.io/"
   },
   "description": "Monster firebase for games",
-  "unity": "2020.3",
+  "unity": "2022.3",
   "dependencies": {},
   "repository": {
     "type": "git",
